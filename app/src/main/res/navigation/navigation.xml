@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/pagerPhotoFragment"
         android:name="com.example.gallerywithpagingdone.PagerPhotoFragment"
-        android:label="PagerPhoto"
+        android:label="图片"
         tools:layout="@layout/fragment_pager_photo" />
 </navigation>

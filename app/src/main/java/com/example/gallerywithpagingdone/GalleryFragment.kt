@@ -45,6 +45,7 @@ class GalleryFragment : Fragment() {
         inflater.inflate(R.menu.menu,menu)
         val searchItem = menu.findItem(R.id.menu_search)
         searchView = searchItem.actionView as SearchView
+        searchView.queryHint="搜索词仅支持英文"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 galleryBinding.swipeLayoutGallery.isRefreshing = true
@@ -72,6 +73,7 @@ class GalleryFragment : Fragment() {
             galleryAdapter.submitList(it)
         })
         galleryBinding.swipeLayoutGallery.setOnRefreshListener {
+            searchView.setQuery("",false)
             galleryViewModel.resetQuery()
         }
         galleryViewModel.networkStatus.observe(viewLifecycleOwner, Observer {
