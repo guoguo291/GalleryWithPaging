@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.example.gallerywithpagingdone.GalleryFragment"
-        android:label="Gallery"
+        android:label="图趣"
         tools:layout="@layout/fragment_gallery">
         <action
             android:id="@+id/action_galleryFragment_to_pagerPhotoFragment"

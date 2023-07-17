@@ -45,6 +45,7 @@ class GalleryAdapter(private val galleryViewModel: GalleryViewModel) :
 
     private fun showFooter() {
         if (hasFooter) {
+            //更新底部条目内容
             notifyItemChanged(itemCount - 1)
         } else {
             hasFooter = true
@@ -185,12 +186,17 @@ class FooterViewHolder(binding: GalleryFooterBinding) : RecyclerView.ViewHolder(
         with(itemView) {
             when (networkStatus) {
                 NetworkStatus.FAILED -> {
-                    textView.text = "点击重试"
+                    textView.text = "网络走丢了,点击重试"
                     progressBar.visibility = View.GONE
                     isClickable = true
                 }
                 NetworkStatus.COMPLETED -> {
-                    textView.text = "加载完毕"
+                    textView.text = "别划啦,到底了"
+                    progressBar.visibility = View.GONE
+                    isClickable = false
+                }
+                NetworkStatus.NULL_DATA -> {
+                    textView.text = "没找到对应数据,换个单词试试呢"
                     progressBar.visibility = View.GONE
                     isClickable = false
                 }

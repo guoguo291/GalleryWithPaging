@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Gallery</string>
+    <string name="app_name">图趣</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello TuFun</string>
     <string name="photo_tag">%d / %d</string>
+    <string name="search">search</string>
+    <string name="refresh">刷新</string>
 </resources>

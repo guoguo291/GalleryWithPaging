@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import com.example.gallerywithpagingdone.databinding.FragmentGalleryBinding
 class GalleryFragment : Fragment() {
     private val galleryViewModel by activityViewModels<GalleryViewModel>()
     private lateinit var galleryBinding:FragmentGalleryBinding
+    private lateinit var searchView:SearchView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +31,7 @@ class GalleryFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.swipeIndicator -> {
+                searchView.setQuery("",false)
                 galleryBinding.swipeLayoutGallery.isRefreshing = true
                 Handler().postDelayed( {galleryViewModel.resetQuery() },1000)
             }
@@ -40,6 +43,22 @@ class GalleryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu,menu)
+        val searchItem = menu.findItem(R.id.menu_search)
+        searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                galleryBinding.swipeLayoutGallery.isRefreshing = true
+                galleryViewModel.doQuery(query).apply {
+                    Utils.hideSoftKeyBoard(this@GalleryFragment.requireContext(),searchView)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        })
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
